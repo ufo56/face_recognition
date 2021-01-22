@@ -36,7 +36,9 @@ def print_result(filename, name, distance, show_distance=False):
     if show_distance:
         print("{},{},{}".format(filename, name, distance))
     else:
-        print("{},{}".format(filename, name))
+        f = open("output.txt", "a")
+        f.write("{},{}".format(filename, name + '\n'))
+        f.close()
 
 
 def test_image(image_to_check, known_names, known_face_encodings, tolerance=0.6, show_distance=False):
@@ -57,11 +59,11 @@ def test_image(image_to_check, known_names, known_face_encodings, tolerance=0.6,
         if True in result:
             [print_result(image_to_check, name, distance, show_distance) for is_match, name, distance in zip(result, known_names, distances) if is_match]
         else:
-            print_result(image_to_check, "unknown_person", None, show_distance)
+            pass
 
     if not unknown_encodings:
         # print out fact that no faces were found in image
-        print_result(image_to_check, "no_persons_found", None, show_distance)
+        pass
 
 
 def image_files_in_folder(folder):
